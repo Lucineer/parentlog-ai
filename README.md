@@ -18,3 +18,7 @@ ParentLog remembers everything. Every milestone. Every first. Every moment you w
 3. Deploy to Cloudflare Workers
 
 Author: Superinstance
+
+## License
+
+MIT — Built with ❤️ by [Superinstance](https://github.com/superinstance) & [Lucineer](https://github.com/Lucineer) (DiGennaro et al.)
