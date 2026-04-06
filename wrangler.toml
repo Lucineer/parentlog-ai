@@ -4,7 +4,7 @@ compatibility_date = "2024-01-01"
 
 [[kv_namespaces]]
 binding = "PARENTLOG_KV"
-id = "parentlog-kv-placeholder"
+id = "a6dcf733215b4894bfe09cf429123066"
 
 [vars]
 DEEPSEEK_API_KEY = ""

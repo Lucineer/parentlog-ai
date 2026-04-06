@@ -1,0 +1,14 @@
+{
+  "name": "parentlog-ai",
+  "displayName": "Parentlog",
+  "version": "1.0.0",
+  "type": "cocapn-vessel",
+  "category": "lifestyle",
+  "description": "AI-powered Parentlog companion",
+  "icon": "ship",
+  "endpoints": ["/", "/health", "/vessel.json"],
+  "deployment": {
+    "platform": "cloudflare-workers",
+    "url": "https://parentlog-ai.casey-digennaro.workers.dev"
+  }
+}

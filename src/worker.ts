@@ -5,6 +5,9 @@ export default {
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': '*', 'Access-Control-Allow-Headers': '*' } });
 
+    if (url.pathname === '/health') return new Response(JSON.stringify({ status: 'ok', repo: 'parentlog-ai', timestamp: Date.now() }), { headers });
+    if (url.pathname === '/vessel.json') { try { const vj = await import('./vessel.json', { with: { type: 'json' } }); return new Response(JSON.stringify(vj.default || vj), { headers }); } catch { return new Response('{}', { headers }); } }
+
     // Landing page
     if (url.pathname === '/' && request.method === 'GET') {
       return new Response(getLandingHTML(), { headers: { 'Content-Type': 'text/html' } });
