@@ -6,9 +6,17 @@
   "category": "lifestyle",
   "description": "AI-powered Parentlog companion",
   "icon": "ship",
-  "endpoints": ["/", "/health", "/vessel.json"],
+  "endpoints": [
+    "/",
+    "/health",
+    "/vessel.json"
+  ],
   "deployment": {
     "platform": "cloudflare-workers",
     "url": "https://parentlog-ai.casey-digennaro.workers.dev"
-  }
+  },
+  "capabilities": [
+    "parenting-tips",
+    "family-logging"
+  ]
 }
