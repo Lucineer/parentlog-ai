@@ -1,29 +1,36 @@
+# parentlog-ai
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/Lucineer/capitaine/master/docs/capitaine-logo.jpg" alt="Capitaine" width="120">
 </p>
 
-<h1 align="center">parentlog-ai</h1>
-
-<p align="center">Parenting companion vessel.</p>
+<h3 align="center">Self-hosted parenting log with pattern recognition</h3>
 
 <p align="center">
   <a href="#quick-start">Quick Start</a> ·
-  <a href="#features">Features</a> ·
+  <a href="#what-it-does">What It Does</a> ·
+  <a href="#limitations">Limitations</a> ·
   <a href="#the-fleet">The Fleet</a> ·
+  <a href="https://parentlog-ai.casey-digennaro.workers.dev">Live Demo</a> ·
   <a href="https://github.com/Lucineer/parentlog-ai/issues">Issues</a>
 </p>
 
 ---
 
-**Powered by [Capitaine](https://github.com/Lucineer/capitaine) · [Cocapn](https://github.com/Lucineer/cocapn)**
+A private companion for tracking your child's daily patterns. You deploy it to your Cloudflare account, store data in your repository, and maintain control. It helps you notice sleep, feeding, and activity patterns without sharing your family's data.
 
-The repo IS the agent. parentlog-ai is a cocapn vessel — a self-improving repository that runs on Cloudflare Workers, thinks with LLMs, and coordinates with the fleet through git.
+## What It Does
+
+- **Pattern tracking**: Log daily activities and see emerging routines
+- **Contextual suggestions**: Get activity ideas based on time of day and previous patterns
+- **Private hosting**: Runs on your Cloudflare account, stores data in your repository
+- **Memory built over time**: Maintains context across days without external databases
+- **Multiple LLM options**: Works with DeepSeek, SiliconFlow, DeepInfra, Moonshot, or local endpoints
 
 ## Quick Start
 
+Fork this repository, then:
 ```bash
-# Fork and deploy
-gh repo fork Lucineer/parentlog-ai --clone
 cd parentlog-ai
 npx wrangler login
 echo "your-github-token" | npx wrangler secret put GITHUB_TOKEN
@@ -31,81 +38,33 @@ echo "your-llm-key" | npx wrangler secret put DEEPSEEK_API_KEY
 npx wrangler deploy
 ```
 
-That's it. The vessel is alive.
+Your instance will be available at your-worker.your-account.workers.dev.
 
-## Features
+## Limitations
 
-- **BYOK v2** — Zero keys in code. All API keys via Cloudflare Secrets Store.
-- **Multi-model** — DeepSeek, SiliconFlow, DeepInfra, Moonshot, z.ai, local models.
-- **Session memory** — Conversations persist and build context over time.
-- **PII safety** — Automatic detection and dehydration of sensitive data.
-- **Rate limiting** — Guest tokens per IP with configurable limits.
-- **Health checks** — Standard `/health` endpoint on all vessels.
-- **Fleet coordination** — CRP-39 protocol for trust, bonds, and events.
+- Requires technical setup (Cloudflare account, API keys)
+- No mobile app—access via browser
+- Pattern recognition depends on consistent logging
+- Limited to one child per instance without configuration changes
 
 ## Architecture
 
-Single-file Cloudflare Worker. Zero runtime dependencies. Inline HTML serving.
+Single-file Cloudflare Worker with zero runtime dependencies. All state stored in your repository. No external databases. Built on the Cocapn fleet protocol for coordinated self-improvement.
 
 ```
-src/
-  worker.ts      # The hull — serves users, runs heartbeats
-lib/
-  byok.ts        # Multi-model routing (BYOK v2)
-  ...
+src/worker.ts     # Main application logic
+lib/byok.ts       # Multi-model LLM routing
+lib/pattern.ts    # Basic pattern detection
+lib/memory.ts     # Git-based state persistence
 ```
 
-## The Fleet
+> The repository is the agent. You maintain control.
 
-parentlog-ai is one of 40+ autonomous vessels in the Lucineer fleet. Each vessel is a different domain of one intelligence.
+Attribution: Superinstance & Lucineer (DiGennaro et al.)
 
+---
 
-<details>
-<summary><strong>⚓ The Fleet</strong></summary>
-
-**Flagship vessels**
-
-- [cocapn.ai](https://github.com/Lucineer/capitaine)
-- [personallog.ai](https://github.com/Lucineer/personallog-ai)
-- [businesslog.ai](https://github.com/Lucineer/businesslog-ai)
-- [studylog.ai](https://github.com/Lucineer/studylog-ai)
-- [makerlog.ai](https://github.com/Lucineer/makerlog-ai)
-- [playerlog.ai](https://github.com/Lucineer/playerlog-ai)
-- [dmlog.ai](https://github.com/Lucineer/dmlog-ai)
-- [reallog.ai](https://github.com/Lucineer/reallog-ai)
-- [deckboss.ai](https://github.com/Lucineer/deckboss-ai)
-
-**Fleet services**
-
-- [Fleet Catalog](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-- [Git Agent (full)](https://github.com/Lucineer/git-agent)
-- [Cocapn Lite (minimal)](https://github.com/Lucineer/cocapn-lite)
-- [Fleet Orchestrator](https://github.com/Lucineer/fleet-orchestrator)
-- [Dead Reckoning Engine](https://github.com/Lucineer/dead-reckoning-engine)
-- [Dream Engine](https://github.com/Lucineer/dream-engine)
-- [Seed UI (5 layers)](https://github.com/Lucineer/seed-ui)
-
-**For power users**
-
-- [Cocapn Lite (tabula rasa)](https://github.com/Lucineer/cocapn-lite)
-- [Cocapn (core platform)](https://github.com/Lucineer/cocapn)
-- [ZeroClaw (framework)](https://github.com/Lucineer/zeroclaw)
-
-[View all 106 repos →](https://github.com/orgs/Lucineer/repositories)
-[Fleet manifest →](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-
-</details>
-
-
-## Philosophy
-
-> The repo is the agent. The agent is the repo. Intelligence crystallizes from fluid (LLM calls) to solid (code). The vessel becomes faster and cheaper as it becomes smarter.
-
-- **Fork-first** — Power users fork and customize. Casual users visit the domain.
-- **Pay-for-convenience** — We save you costs through bulk inference, not markups.
-- **Git as coordination** — Agents compete via PRs, not chat.
-- **Soft actualization** — Vessels evolve gently based on usage, not hard updates.
-
-## License
-
-MIT · Superinstance & Lucineer (DiGennaro et al.)
+<div align="center">
+  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> ·
+  <a href="https://cocapn.ai">Cocapn</a>
+</div>
