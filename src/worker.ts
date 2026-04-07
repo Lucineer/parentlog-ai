@@ -10,12 +10,12 @@ export default {
 
     // Landing page
     if (url.pathname === '/' && request.method === 'GET') {
-      return new Response(getLandingHTML(), { headers: { 'Content-Type': 'text/html' } });
+      return new Response(getLandingHTML(), { headers: { 'Content-Type': 'text/html', 'Content-Security-Policy': 'default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*; frame-ancestors 'none';' } });
     }
 
     // App
     if (url.pathname === '/app' && request.method === 'GET') {
-      return new Response(getAppHTML(), { headers: { 'Content-Type': 'text/html' } });
+      return new Response(getAppHTML(), { headers: { 'Content-Type': 'text/html', 'Content-Security-Policy': 'default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*; frame-ancestors 'none';' } });
     }
 
     // Chat SSE
