@@ -1,71 +1,57 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Lucineer/capitaine/master/docs/capitaine-logo.jpg" alt="Capitaine" width="120">
-</p>
+# ParentLog AI 🛋️
 
-<h1 align="center">parentlog-ai</h1>
+You deploy a private AI companion for parenting notes. No accounts. Your data stays within your own Cloudflare Worker.
 
-<p align="center">A parent-focused memory vessel for Cloudflare Workers.</p>
-
-<p align="center">
-  <a href="#quick-start">Quick Start</a> ·
-  <a href="#features">Features</a> ·
-  <a href="#the-fleet">The Fleet</a> ·
-  <a href="https://parentlog-ai.casey-digennaro.workers.dev">Live Demo</a> ·
-  <a href="https://github.com/Lucineer/parentlog-ai/issues">Issues</a>
-</p>
+**Live Demo:** [https://parentlog-ai.casey-digennaro.workers.dev](https://parentlog-ai.casey-digennaro.workers.dev)
 
 ---
 
-parentlog-ai is a forked vessel for private parenting notes. It logs patterns like sleep and milestones, suggests activities, and maintains context between sessions. It runs as a single-file Cloudflare Worker with no database or external analytics.
+## Why This Exists
+Many parenting apps monetize user data. This project provides a self-contained alternative for logging child milestones and daily notes without sending personal details to a third-party service.
 
-This is a personal tool you host. All data stays within your worker, and changes only happen when you update your fork.
-
-**Built with [Capitaine](https://github.com/Lucineer/capitaine) · [Cocapn](https://github.com/Lucineer/cocapn)**
+---
 
 ## Quick Start
-
-1.  Fork this repository.
-2.  Clone your fork and navigate to it.
-3.  Set your Cloudflare and API keys as secrets:
-    ```bash
-    npx wrangler secret put GITHUB_TOKEN
-    npx wrangler secret put DEEPSEEK_API_KEY # or another supported key
-    ```
-4.  Deploy:
+1.  **Fork** this repository.
+2.  **Deploy** your fork to Cloudflare Workers.
     ```bash
     npx wrangler deploy
     ```
+3.  Add your LLM API key as a secret.
+    ```bash
+    npx wrangler secret put DEEPSEEK_API_KEY
+    ```
 
-Your vessel is now running at your `*.workers.dev` URL.
-
-## Features
-
-### Core Functions
-- Log daily notes, sleep times, and milestones.
-- Review recent patterns and generate gentle activity suggestions.
-- Maintain persistent session memory via KV storage.
-- Automatically redact personal information before LLM calls.
-
-### Technical Notes
-- **BYOK v2**: Keys are stored via Cloudflare Secrets, not in code.
-- **Multi-model**: Supports DeepSeek, SiliconFlow, DeepInfra, and local models.
-- **Rate Limiting**: Basic per-IP rate limiting for the public demo endpoint.
-- **CRP-39**: Optional fleet coordination for updates via the git-based protocol.
-
-### Limitations
-- Memory is stored in Cloudflare KV with a 512KB limit per namespace. Extensive logs over many months may require manual archiving.
-
-## Architecture
-
-Single-file Cloudflare Worker (`src/worker.ts`) with zero runtime dependencies and no build step. It serves inline HTML, handles user input, manages context windows, and interfaces with external LLM APIs.
-
-## The Fleet
-
-parentlog-ai is part of the Cocapn Fleet—independent, open-source agent vessels. Fleet members can optionally coordinate updates and share trusted patterns via the CRP-39 protocol.
+Your instance is live after deployment completes.
 
 ---
-<div align="center">
-  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> · 
-  <a href="https://cocapn.ai">Cocapn</a><br/>
-  <sub>Attribution: Superinstance & Lucineer (DiGennaro et al.). MIT Licensed.</sub>
-</div>
+
+## Features
+*   Log sleep, daily notes, and milestones.
+*   Get activity suggestions based on logged milestones.
+*   All history persists in your Cloudflare KV storage.
+*   Personal details (like names) are redacted client-side before any LLM API call.
+*   Configurable for DeepSeek, other APIs, or local LLMs via a configurable endpoint.
+*   Built-in, optional rate limiting.
+*   Can receive silent, non-breaking updates via the Cocapn Fleet protocol.
+
+---
+
+## How It Works
+A single-file Cloudflare Worker (`index.js`) serves the web interface, streams AI responses, and manages data. There are no external dependencies, databases, or build steps.
+
+Fork the repository, modify the configuration if needed, and deploy. This is the entire workflow.
+
+---
+
+## Limitations
+*   You are responsible for managing your own LLM API key and costs.
+*   Data storage uses Cloudflare KV, which has limits on write operations per second (1 write per second per key). It is not designed for high-frequency, real-time logging.
+
+---
+
+Open source. MIT License.
+
+Attribution: Superinstance and Lucineer (DiGennaro et al.)
+
+<div style="text-align:center;padding:16px;color:#64748b;font-size:.8rem"><a href="https://the-fleet.casey-digennaro.workers.dev" style="color:#64748b">The Fleet</a> &middot; <a href="https://cocapn.ai" style="color:#64748b">Cocapn</a></div>
